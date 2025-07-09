@@ -11,8 +11,24 @@
             color: #ffff00;
             margin: 0;
             padding: 0;
-            background-image: url('https://www.dropbox.com/scl/fi/c2r79ocnfrdi5aee8szhc/i.jpg?rlkey=6llo4cf3frvu3hw2yi05te127&st=iot97fdx&dl=0');
+            background-image: url('https://previews.dropbox.com/p/thumb/ACuNXge1XnoqkK6ORkAI20ylsRlhrwq3VtPYpCMrYv61ORF_pG1HhGvTTdeTXs0dScHVAwLCuxfLXhbWsy6ZbFV9uP7p01Jk_wWaL6eL8VfOrZ8k1gewT0xsZ4nHOh8_K5eXhq3qfT9BzkoSGt-UE8o7RQG7oH1ViDRuHXN1nScXHmsAs4lrq3ETsiF8zB8Hgm089sR4Km5eEBK4Ocw4PI6npdaxOjSrtcGNP-vsHAMsIbTo01GiWkTTKv81iQpNv4YqpSSesq6ntrhdNmFMwKgvnSeEqHAEEnNeL_D8OVWkZbnBhJ1ItXgU1qiyakY1DTMOTvDv7htaQJAWtSJFnjyL/p.jpeg?is_prewarmed=true');
             background-size: cover;
+        }
+        
+        /* Анимация радужного баланса */
+        @keyframes rainbow {
+            0% { color: #ff0000; }
+            14% { color: #ff7f00; }
+            28% { color: #ffff00; }
+            42% { color: #00ff00; }
+            57% { color: #0000ff; }
+            71% { color: #4b0082; }
+            85% { color: #9400d3; }
+            100% { color: #ff0000; }
+        }
+        
+        .rainbow-balance {
+            animation: rainbow 3s linear infinite;
         }
         
         .header {
@@ -258,23 +274,37 @@
             font-size: 20px;
             margin-top: 10px;
         }
+        
+        /* Стиль для заблокированных кнопок ставок */
+        .bet-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
-    <!-- Аудио для фона -->
- <audio id="bgMusic" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-        Ваш браузер не поддерживает аудио элемент.
+    <!-- Аудио элементы (ЗАМЕНИТЕ ССЫЛКИ НА СВОИ ФАЙЛЫ) -->
+    <!-- Фоновая музыка -->
+    <audio id="bgMusic" loop>
+        <source src="C:\Users\User\Desktop\123\sounds\Далбаеб - Далбаеб_(mp3-flamingo.ru) (1).mp3" type="audio/mpeg">
     </audio>
     
-    <div class="audio-control" onclick="toggleAudio()">
-        <img src="https://i.imgur.com/5Q5j2JN.png" width="40" height="40" alt="Музыка">
+    <!-- Звуки для кнопок -->
+    <audio id="buttonSound" src="C:\Users\User\Desktop\123\sounds\707db471-c834-494e-a3d9-ada985203ef6.mp3"></audio>
+    <audio id="spinSound" src="C:\Users\User\Desktop\123\sounds\mixkit-payout-award-1934.wav"></audio>
+    <audio id="diceSound" src="C:\Users\User\Desktop\123\sounds\6f488185486f9cf.mp3"></audio>
+    <audio id="cardSound" src="C:\Users\User\Desktop\123\sounds\mixkit-thin-metal-card-deck-shuffle-3175.wav"></audio>
+    <audio id="winSound" src="C:\Users\User\Desktop\123\sounds\mixkit-coin-win-notification-1992.wav"></audio>
+    <audio id="loseSound" src="C:\Users\User\Desktop\123\sounds\e5303e72e0622f3.mp3"></audio>
+    
+    <div class="audio-control" onclick="playButtonSound(); toggleAudio()">
+        <img src="https://previews.dropbox.com/p/thumb/ACv2S0R3_hy7XqIwFu-EQS8mUiJssya-FGe55Sq2wY6H8ee7YZgG78fAS8Vp_EXFy-k2y95xdyCg25SFGx_t-3zFY_-nva_mb0Gy6PqhOntAbFYFJ6e3cr57bDiu83zdmSWY1GLStaoL1lt6_kcWDbJseY8OvnG50gwa0QakECOR4hnbdN4nmGSbUxqmtgmpU_oCHgI4poZvCuSpH_N9V31km9hIRlg1B1c_Ecq1dbXuryPi_yQIy6eNMZtbFW4dZCgYAX5GpsjLURKJHjZA8lbxF0LtfTViKXWYW_FeITIrKQqXoEGPseAAcPVB9hJlChyYmyky0gluCIrZyEGsOkDZ/p.jpeg?is_prewarmed=true" width="40" height="40" alt="Музыка">
     </div>
 
     <header class="header">
-        <img src="https://i.imgur.com/XxXxXxX.png" alt="Мемное Казино" class="logo">
+        <img src="https://previews.dropbox.com/p/thumb/ACsaGW8tWF82aGkyLHt9Jem8JjvU5OQ5L2dpnISjMv6rw66nrjYO9lFyYkH9mn4rRpG8J4W-hvZiqz1qP6fv0wGDklAyPiO5R6NocUONLYfbrlUz50yZIoW0HJFHsSo6DHeYiYJjougrTKiJ4KshCpdCWUL5_6yXOxq5DqzteSeFQFqxqoMYqBXixFbwUTWto9E_Y8Jnvz74d_b2caY3CDrcw68AEJjKvLm73lC77v1ws18OrvuYn6LT-AOksYwRJgesfCaQAgT4hvX3-l5o_6DfcPVPco-kKBmRje25NvlYQgXTopahRmatvcUKX5jrqB8gm5Zhd_eJoVWJaRAd6H7l/p.jpeg?is_prewarmed=true" alt="Мемное Казино" class="logo">
         <h1 class="meme-text">Только для настоящих дегенератов!</h1>
-        <div class="balance">Баланс: <span id="userBalance">1000</span> ₣ (фури-коины)</div>
+        <div class="balance">Баланс: <span id="userBalance" class="rainbow-balance">1000</span> ₣ (фури-коины)</div>
     </header>
     
     <div class="container">
@@ -283,40 +313,40 @@
         <div class="games">
             <!-- Блекджек -->
             <div class="game">
-                <img src="https://fastpic.org/view/125/2025/0709/b0804f2ba119d984d7275c5e6515e74d.jpg.html][IMG]https://i125.fastpic.org/thumb/2025/0709/4d/b0804f2ba119d984d7275c5e6515e74d.jpeg" alt="Блекджек с котиками">
+                <img src="https://previews.dropbox.com/p/thumb/ACvPZl-NR01M-et0Ww8-BgPu6ctyrP6xu0Comr3OnOYkTS-42EUFQTVJ7i8k1sajyZBjORJNs83nXy8mYJNZ3HmdEnxWq3Aqf7s6_ht0e-LRkaOeOnislCLi2zGz1s_768K8D-HMsVDNFkIgyDziRjTnu4n5oGgironqKX_cljydqFFFWjD4LCzVZyLYGpU--zpaItwKgE_YzvplHT0ApjEg_pKr-39HQc8zpyAsyDSpOOsONY-BMwHty_c3zF-wpbnPHGyXfM058oNM5bzvALh9FaJvj3tkZ4UTQtZ9dNAOTmOLaAjUs5wgz6ckH1poMWW9Z4cXKr_siExwdcF9icaQ/p.jpeg?is_prewarmed=true" alt="Блекджек с котиками">
                 <h3>Блекджек с Котиками</h3>
                 <p>21 очко негра! Мяу-мяу, мне тоже в жопу!</p>
-                <button class="play-btn" onclick="openGame('blackjack')">Играть</button>
+                <button class="play-btn" onclick="playButtonSound(); openGame('blackjack')">Играть</button>
             </div>
             
             <!-- Слоты -->
             <div class="game">
-                <img src="https://i.imgur.com/ZzZzZzZ.jpg" alt="Слоты с кринжем">
+                <img src="https://previews.dropbox.com/p/thumb/ACs7GceZhlnzTKhIPPfsyCZ_WQP7t7R71QBYgTPocETNkoFK_8IcpkuhFdpa_cf4YNiAwc_YFCd5j7ndu4cQ1huRZhHIGHMDPm5ob0n1kYPu4Fh5bs5RNEoGQojSEvloY-POFiiYmGrJJDaptBgGdBs1woEvp1QFxx10Fd4DiJGIaFJaDehMKcZLFBEpP7lTEv-ZV8y6LIRsC9L0FA7tjuYxdipFjpfY9e02GXLhZkwotJjtaIs1_Kuyc_JHpVAnaCqXl9lJjc98o0p7DdLmWOThe6Ye6tdL1sPzW5GtZWvj_H-Lpd2tFYhW2Ms_1qk-HuYj6pZf8DHlSs_hEbg2KvUd/p.jpeg?is_prewarmed=true" alt="Слоты с кринжем">
                 <h3>Кринж Слоты</h3>
                 <p>3 в ряд - и ты депаешь! Или лох? Кто знает...</p>
-                <button class="play-btn" onclick="openGame('slots')">Играть</button>
+                <button class="play-btn" onclick="playButtonSound(); openGame('slots')">Играть</button>
             </div>
             
             <!-- Кости -->
             <div class="game">
-                <img src="https://i.imgur.com/WwWwWwW.jpg" alt="Кости с троллфейсом">
+                <img src="https://previews.dropbox.com/p/thumb/ACvRuEKNeg0xa4gkZQKvU5EuCR9aRXZ3QdOLKWx_3Jo84dJcWwQEC8EhkT5u5RBOO_HEz3zPRiOy2GwizQfImXB9MgmXBXgPTao8nYP4oE040y5LjsIasIvOGd04ny9xndvKcJzP1EnFbOwWT-L5j6RA9Mbmr58UAzd3hgw-lRyU-Q5ejV3jGoxp9UNJwB6eixNMVab5aIt7HPnK-Bu2aaTIcfMFPNfcf1NEPH5wG1qbpKpWR3fEMoVGw2A95bzSgHt3ak0FihWUyNN8WdueA0aakqBAiNYMVHZVJG5mGyVU0rWNvKGeuUNQ1Yev5WhUtyH9U6r19TAsH0L-joHbTCqg/p.jpeg?is_prewarmed=true" alt="Кости с троллфейсом">
                 <h3>Кости Судьбы</h3>
                 <p>Бросай кости и узнай, будешь ли ты сегодня есть дошик!</p>
-                <button class="play-btn" onclick="openGame('dice')">Играть</button>
+                <button class="play-btn" onclick="playButtonSound(); openGame('dice')">Играть</button>
             </div>
         </div>
     </div>
     
     <footer class="footer">
-        <img src="https://i.imgur.com/XxXxXxX_small.png" alt="Мемное Казино" width="100">
-        <p>© 2023 Мемное Казино - Это не азартные игры, это образ жизни!</p>
-        <p class="meme-text">Сделано с ❤️ и мемами (и немного jQuery)</p>
+        <img src="https://previews.dropbox.com/p/thumb/ACt9Q0vYs4lff6HjOHcLU2XEcOyb44zVAvp676MkGMUYpDxRKr04xhsIw4l0ap8dcpN3SSDOrKLOPTTI5sGoo9aUnG-HWGbRCTB2YeiyDnT4lGXZIl14Hh3uExIwT2WOk8M4lmOVdQ8gwMzdQdNEyQWev09KwlEQgtJCgjhLJMUWdapFyNr1cAlwv_hpFP_hNkIsH_QQ-W1F0B0vK8-7Tm_ScA5jKfHgX8SRWZizDZFz63sx6YL7PARaDTcLVJy-vbxI5G5meaf7TjehSyX3_yvnzvaAyrRj-MM4XErdcmS6_reXCgoWLGgmCpVPEt-KE_x_SpktR0q0gmNhFQLWdrW1/p.png?is_prewarmed=true" alt="Депай тварь!" width="100">
+        <p>© 2025 Казино Аристарха - Это не азартные игры, это образ жизни!</p>
+        <p class="meme-text">Сделано с ❤️ и мемами</p>
     </footer>
     
     <!-- Окно игры Блекджек -->
     <div id="blackjack-game" class="game-window">
         <div class="game-content">
-            <button class="close-game" onclick="closeGame()">✕</button>
+            <button class="close-game" onclick="playButtonSound(); closeGame()">✕</button>
             <h2>Блекджек с Котиками</h2>
             <p>Наберите 21 очко, но не переборщите!</p>
             
@@ -333,13 +363,13 @@
             <div class="hand-value">Очки: <span id="player-value">0</span></div>
             
             <div class="bet-controls">
-                <button class="bet-btn" onclick="changeBlackjackBet(-10)">-10</button>
+                <button class="bet-btn" id="blackjack-minus" onclick="playButtonSound(); changeBlackjackBet(-10)">-10</button>
                 <span id="blackjackBet">20</span> ₣
-                <button class="bet-btn" onclick="changeBlackjackBet(10)">+10</button>
+                <button class="bet-btn" id="blackjack-plus" onclick="playButtonSound(); changeBlackjackBet(10)">+10</button>
             </div>
             
             <div id="blackjack-buttons">
-                <button class="play-btn" onclick="startBlackjack()">Начать игру</button>
+                <button class="play-btn" onclick="playButtonSound(); startBlackjack()">Начать игру</button>
             </div>
             
             <div id="blackjackResult" class="meme-text"></div>
@@ -349,7 +379,7 @@
     <!-- Окно игры Слоты -->
     <div id="slots-game" class="game-window">
         <div class="game-content">
-            <button class="close-game" onclick="closeGame()">✕</button>
+            <button class="close-game" onclick="playButtonSound(); closeGame()">✕</button>
             <h2>Кринж Слоты</h2>
             <p>Собери 3 одинаковых символа для победы!</p>
             
@@ -366,12 +396,12 @@
             </div>
             
             <div class="bet-controls">
-                <button class="bet-btn" onclick="changeSlotBet(-5)">-5</button>
+                <button class="bet-btn" id="slots-minus" onclick="playButtonSound(); changeSlotBet(-5)">-5</button>
                 <span id="slotBet">10</span> ₣
-                <button class="bet-btn" onclick="changeSlotBet(5)">+5</button>
+                <button class="bet-btn" id="slots-plus" onclick="playButtonSound(); changeSlotBet(5)">+5</button>
             </div>
             
-            <button class="play-btn" id="spin-button" onclick="spinSlots()">Крутить!</button>
+            <button class="play-btn" id="spin-button" onclick="playSpinSound(); spinSlots()">Крутить!</button>
             
             <div id="slotsResult" class="meme-text"></div>
         </div>
@@ -380,7 +410,7 @@
     <!-- Окно игры Кости -->
     <div id="dice-game" class="game-window">
         <div class="game-content">
-            <button class="close-game" onclick="closeGame()">✕</button>
+            <button class="close-game" onclick="playButtonSound(); closeGame()">✕</button>
             <h2>Кости Судьбы</h2>
             <p>Бросай кости и попробуй победить крупье!</p>
             
@@ -406,12 +436,12 @@
                 <p>Кости крупье</p>
                 
                 <div class="bet-controls">
-                    <button class="bet-btn" onclick="changeDiceBet(-10)">-10</button>
+                    <button class="bet-btn" id="dice-minus" onclick="playButtonSound(); changeDiceBet(-10)">-10</button>
                     <span id="diceBet">20</span> ₣
-                    <button class="bet-btn" onclick="changeDiceBet(10)">+10</button>
+                    <button class="bet-btn" id="dice-plus" onclick="playButtonSound(); changeDiceBet(10)">+10</button>
                 </div>
                 
-                <button class="play-btn" onclick="rollDice()">Бросай кости!</button>
+                <button class="play-btn" onclick="playDiceSound(); rollDice()">Бросай кости!</button>
                 
                 <div id="diceResult" class="meme-text"></div>
             </div>
@@ -444,6 +474,43 @@
             }
         }
         
+        // Функции для воспроизведения звуков
+        function playButtonSound() {
+            const sound = document.getElementById('buttonSound');
+            sound.currentTime = 0;
+            sound.play();
+        }
+        
+        function playSpinSound() {
+            const sound = document.getElementById('spinSound');
+            sound.currentTime = 0;
+            sound.play();
+        }
+        
+        function playDiceSound() {
+            const sound = document.getElementById('diceSound');
+            sound.currentTime = 0;
+            sound.play();
+        }
+        
+        function playCardSound() {
+            const sound = document.getElementById('cardSound');
+            sound.currentTime = 0;
+            sound.play();
+        }
+        
+        function playWinSound() {
+            const sound = document.getElementById('winSound');
+            sound.currentTime = 0;
+            sound.play();
+        }
+        
+        function playLoseSound() {
+            const sound = document.getElementById('loseSound');
+            sound.currentTime = 0;
+            sound.play();
+        }
+        
         // Управление играми
         function openGame(gameId) {
             document.getElementById(gameId + '-game').style.display = 'block';
@@ -460,450 +527,6 @@
             document.getElementById('userBalance').textContent = balance;
         }
         
-        // Изменение ставки
-        function changeSlotBet(amount) {
-            slotBet = Math.max(1, Math.min(50, slotBet + amount));
-            document.getElementById('slotBet').textContent = slotBet;
-        }
-        
-        function changeDiceBet(amount) {
-            diceBet = Math.max(5, Math.min(100, diceBet + amount));
-            document.getElementById('diceBet').textContent = diceBet;
-        }
-        
-        function changeBlackjackBet(amount) {
-            blackjackBet = Math.max(5, Math.min(100, blackjackBet + amount));
-            document.getElementById('blackjackBet').textContent = blackjackBet;
-        }
-        
-        // ========== БЛЕКДЖЕК ==========
-        function startBlackjack() {
-            if (balance < blackjackBet) return;
-            
-            balance -= blackjackBet;
-            updateBalance();
-            
-            document.getElementById('blackjackResult').textContent = '';
-            
-            // Создаем колоду и перемешиваем
-            const suits = ['♠', '♥', '♦', '♣'];
-            const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-            let deck = [];
-            
-            for (let suit of suits) {
-                for (let value of values) {
-                    deck.push({suit, value});
-                }
-            }
-            
-            // Перемешиваем колоду
-            for (let i = deck.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [deck[i], deck[j]] = [deck[j], deck[i]];
-            }
-            
-            blackjackGame = {
-                deck: deck,
-                dealerCards: [],
-                playerCards: [],
-                dealerValue: 0,
-                playerValue: 0,
-                gameOver: false
-            };
-            
-            // Раздаем начальные карты
-            blackjackGame.playerCards.push(drawCard());
-            blackjackGame.dealerCards.push(drawCard());
-            blackjackGame.playerCards.push(drawCard());
-            blackjackGame.dealerCards.push(drawCard());
-            
-            updateBlackjackUI();
-            
-            // Проверяем блекджек
-            calculateHandValue(blackjackGame.playerCards, true);
-            calculateHandValue(blackjackGame.dealerCards, false);
-            
-            if (blackjackGame.playerValue === 21) {
-                endBlackjack('blackjack');
-                return;
-            }
-            
-            // Показываем кнопки для игрока
-            document.getElementById('blackjack-buttons').innerHTML = `
-                <button class="play-btn" onclick="hit()">Ещё</button>
-                <button class="play-btn" onclick="stand()">Хватит</button>
-            `;
-        }
-        
-        function drawCard() {
-            return blackjackGame.deck.pop();
-        }
-        
-        function hit() {
-            if (blackjackGame.gameOver) return;
-            
-            blackjackGame.playerCards.push(drawCard());
-            calculateHandValue(blackjackGame.playerCards, true);
-            updateBlackjackUI();
-            
-            if (blackjackGame.playerValue > 21) {
-                endBlackjack('lose');
-            }
-        }
-        
-        function stand() {
-            if (blackjackGame.gameOver) return;
-            
-            // Ход дилера
-            calculateHandValue(blackjackGame.dealerCards, false);
-            
-            while (blackjackGame.dealerValue < 17) {
-                blackjackGame.dealerCards.push(drawCard());
-                calculateHandValue(blackjackGame.dealerCards, false);
-            }
-            
-            updateBlackjackUI();
-            
-            // Определяем результат
-            if (blackjackGame.dealerValue > 21) {
-                endBlackjack('win');
-            } else if (blackjackGame.dealerValue > blackjackGame.playerValue) {
-                endBlackjack('lose');
-            } else if (blackjackGame.dealerValue < blackjackGame.playerValue) {
-                endBlackjack('win');
-            } else {
-                endBlackjack('push');
-            }
-        }
-        
-        function calculateHandValue(cards, isPlayer) {
-            let value = 0;
-            let aces = 0;
-            
-            for (let card of cards) {
-                if (card.value === 'A') {
-                    value += 11;
-                    aces++;
-                } else if (['K', 'Q', 'J'].includes(card.value)) {
-                    value += 10;
-                } else {
-                    value += parseInt(card.value);
-                }
-            }
-            
-            // Учитываем тузы как 1, если перебор
-            while (value > 21 && aces > 0) {
-                value -= 10;
-                aces--;
-            }
-            
-            if (isPlayer) {
-                blackjackGame.playerValue = value;
-                document.getElementById('player-value').textContent = value;
-            } else {
-                blackjackGame.dealerValue = value;
-                document.getElementById('dealer-value').textContent = blackjackGame.gameOver ? value : '?';
-            }
-            
-            return value;
-        }
-        
-        function updateBlackjackUI() {
-            const dealerCards = document.getElementById('dealer-cards');
-            const playerCards = document.getElementById('player-cards');
-            
-            dealerCards.innerHTML = '';
-            playerCards.innerHTML = '';
-            
-            // Показываем карты дилера (первая карта скрыта, если игра не окончена)
-            blackjackGame.dealerCards.forEach((card, index) => {
-                const cardElement = document.createElement('div');
-                cardElement.className = 'card';
-                
-                if (index === 0 && !blackjackGame.gameOver) {
-                    cardElement.textContent = '🂠';
-                } else {
-                    cardElement.textContent = card.value + card.suit;
-                    if (['♥', '♦'].includes(card.suit)) {
-                        cardElement.classList.add('red');
-                    }
-                }
-                
-                dealerCards.appendChild(cardElement);
-            });
-            
-            // Показываем карты игрока
-            blackjackGame.playerCards.forEach(card => {
-                const cardElement = document.createElement('div');
-                cardElement.className = 'card';
-                cardElement.textContent = card.value + card.suit;
-                if (['♥', '♦'].includes(card.suit)) {
-                    cardElement.classList.add('red');
-                }
-                playerCards.appendChild(cardElement);
-            });
-        }
-        
-        function endBlackjack(result) {
-            blackjackGame.gameOver = true;
-            calculateHandValue(blackjackGame.dealerCards, false);
-            updateBlackjackUI();
-            
-            const resultElement = document.getElementById('blackjackResult');
-            
-            switch (result) {
-                case 'blackjack':
-                    const winAmount = Math.floor(blackjackBet * 2.5);
-                    balance += winAmount + blackjackBet;
-                    resultElement.textContent = `БЛЕКДЖЕК! Вы выиграли ${winAmount} ₣!`;
-                    break;
-                case 'win':
-                    const win = blackjackBet * 2;
-                    balance += win;
-                    resultElement.textContent = `Победа! Вы выиграли ${blackjackBet} ₣!`;
-                    break;
-                case 'lose':
-                    resultElement.textContent = 'Вы проиграли! Попробуйте ещё раз!';
-                    break;
-                case 'push':
-                    balance += blackjackBet;
-                    resultElement.textContent = 'Ничья! Ставка возвращена.';
-                    break;
-            }
-            
-            updateBalance();
-            
-            document.getElementById('blackjack-buttons').innerHTML = `
-                <button class="play-btn" onclick="startBlackjack()">Играть снова</button>
-            `;
-        }
-        
-        // ========== СЛОТЫ ==========
-        function initSlots() {
-            const symbols = ['😂', '🤡', '💩', '👑', '🍆', '🍕'];
-            
-            for (let i = 1; i <= 3; i++) {
-                const reel = document.getElementById('reel' + i);
-                reel.innerHTML = '';
-                
-                // Добавляем 6 символов в каждый барабан (для эффекта прокрутки)
-                for (let j = 0; j < 6; j++) {
-                    const symbol = document.createElement('div');
-                    symbol.className = 'slot-item';
-                    symbol.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-                    reel.appendChild(symbol);
-                }
-            }
-        }
-        
-        function spinSlots() {
-            if (isSpinning || balance < slotBet) return;
-            
-            isSpinning = true;
-            balance -= slotBet;
-            updateBalance();
-            
-            const spinButton = document.getElementById('spin-button');
-            spinButton.disabled = true;
-            
-            const resultElement = document.getElementById('slotsResult');
-            resultElement.textContent = '';
-            
-            // Анимация прокрутки
-            const reels = [
-                document.getElementById('reel1'),
-                document.getElementById('reel2'),
-                document.getElementById('reel3')
-            ];
-            
-            const spinTimes = [10, 15, 20]; // Количество шагов для каждого барабана
-            const results = [];
-            let reelsStopped = 0;
-            
-            reels.forEach((reel, index) => {
-                let spins = 0;
-                const spinInterval = setInterval(() => {
-                    spins++;
-                    
-                    // Прокрутка
-                    const firstChild = reel.firstElementChild;
-                    reel.removeChild(firstChild);
-                    reel.appendChild(firstChild.cloneNode(true));
-                    
-                    if (spins >= spinTimes[index]) {
-                        clearInterval(spinInterval);
-                        
-                        // Фиксируем результат (средний символ)
-                        const symbols = reel.querySelectorAll('.slot-item');
-                        results.push(symbols[1].textContent);
-                        reelsStopped++;
-                        
-                        // Если все барабаны остановились
-                        if (reelsStopped === 3) {
-                            showSlotsResult(results);
-                            isSpinning = false;
-                            spinButton.disabled = false;
-                        }
-                    }
-                }, 100);
-            });
-        }
-        
-        function showSlotsResult(results) {
-            const resultElement = document.getElementById('slotsResult');
-            
-            // Проверка на выигрышные комбинации
-            if (results[0] === results[1] && results[1] === results[2]) {
-                let multiplier = 0;
-                
-                switch (results[0]) {
-                    case '👑': multiplier = 10; break;
-                    case '🍆': multiplier = 5; break;
-                    case '😂': multiplier = 3; break;
-                    default: multiplier = 2;
-                }
-                
-                const winAmount = slotBet * multiplier;
-                balance += winAmount;
-                resultElement.textContent = `ДЖЕКПОТ! ${results[0]} ${results[1]} ${results[2]} - Выигрыш ${winAmount} ₣!`;
-            } else if (results[0] === results[1] || results[1] === results[2] || results[0] === results[2]) {
-                balance += slotBet;
-                resultElement.textContent = `Удача! Маленький выигрыш ${slotBet} ₣!`;
-            } else {
-                resultElement.textContent = `Повезёт в следующий раз! ${results[0]} ${results[1]} ${results[2]}`;
-            }
-            
-            updateBalance();
-        }
-        
-        // ========== КОСТИ ==========
-        function initDice() {
-            createDiceFaces();
-        }
-        
-        function createDiceFaces() {
-            const diceElements = [
-                document.getElementById('playerDice1'),
-                document.getElementById('playerDice2'),
-                document.getElementById('dealerDice1'),
-                document.getElementById('dealerDice2')
-            ];
-            
-            diceElements.forEach(dice => {
-                dice.innerHTML = '';
-                
-                // Создаем 9 возможных позиций для точек
-                for (let i = 1; i <= 9; i++) {
-                    const dot = document.createElement('div');
-                    dot.className = 'dot hidden';
-                    dot.id = `${dice.id}-dot${i}`;
-                    dice.appendChild(dot);
-                }
-            });
-        }
-        
-        function showDiceFace(diceElement, value) {
-            // Скрываем все точки
-            for (let i = 1; i <= 9; i++) {
-                document.getElementById(`${diceElement.id}-dot${i}`).classList.add('hidden');
-            }
-            
-            // Показываем нужные точки в зависимости от значения
-            switch (value) {
-                case 1:
-                    showDots(diceElement, [5]);
-                    break;
-                case 2:
-                    showDots(diceElement, [1, 9]);
-                    break;
-                case 3:
-                    showDots(diceElement, [1, 5, 9]);
-                    break;
-                case 4:
-                    showDots(diceElement, [1, 3, 7, 9]);
-                    break;
-                case 5:
-                    showDots(diceElement, [1, 3, 5, 7, 9]);
-                    break;
-                case 6:
-                    showDots(diceElement, [1, 3, 4, 6, 7, 9]);
-                    break;
-            }
-        }
-        
-        function showDots(diceElement, dots) {
-            dots.forEach(dotPos => {
-                document.getElementById(`${diceElement.id}-dot${dotPos}`).classList.remove('hidden');
-            });
-        }
-        
-        function rollDice() {
-            if (isSpinning || balance < diceBet) return;
-            
-            isSpinning = true;
-            balance -= diceBet;
-            updateBalance();
-            
-            const resultElement = document.getElementById('diceResult');
-            resultElement.textContent = '';
-            
-            // Анимация броска
-            let rolls = 0;
-            const maxRolls = 10;
-            const rollInterval = setInterval(() => {
-                rolls++;
-                
-                // Показываем случайные значения
-                const random1 = Math.floor(Math.random() * 6) + 1;
-                const random2 = Math.floor(Math.random() * 6) + 1;
-                const random3 = Math.floor(Math.random() * 6) + 1;
-                const random4 = Math.floor(Math.random() * 6) + 1;
-                
-                showDiceFace(document.getElementById('playerDice1'), random1);
-                showDiceFace(document.getElementById('playerDice2'), random2);
-                showDiceFace(document.getElementById('dealerDice1'), random3);
-                showDiceFace(document.getElementById('dealerDice2'), random4);
-                
-                if (rolls >= maxRolls) {
-                    clearInterval(rollInterval);
-                    setTimeout(() => {
-                        showDiceResult();
-                        isSpinning = false;
-                    }, 300);
-                }
-            }, 100);
-        }
-        
-        function showDiceResult() {
-            const resultElement = document.getElementById('diceResult');
-            
-            // Генерируем финальные значения
-            const playerDice1 = Math.floor(Math.random() * 6) + 1;
-            const playerDice2 = Math.floor(Math.random() * 6) + 1;
-            const dealerDice1 = Math.floor(Math.random() * 6) + 1;
-            const dealerDice2 = Math.floor(Math.random() * 6) + 1;
-            
-            showDiceFace(document.getElementById('playerDice1'), playerDice1);
-            showDiceFace(document.getElementById('playerDice2'), playerDice2);
-            showDiceFace(document.getElementById('dealerDice1'), dealerDice1);
-            showDiceFace(document.getElementById('dealerDice2'), dealerDice2);
-            
-            const playerSum = playerDice1 + playerDice2;
-            const dealerSum = dealerDice1 + dealerDice2;
-            
-            if (playerSum > dealerSum) {
-                const winAmount = diceBet * 2;
-                balance += winAmount;
-                resultElement.textContent = `Победа! ${playerSum} vs ${dealerSum}. Выигрыш ${winAmount} ₣!`;
-            } else if (playerSum === dealerSum) {
-                balance += diceBet;
-                resultElement.textContent = `Ничья! ${playerSum} vs ${dealerSum}. Возврат ставки.`;
-            } else {
-                resultElement.textContent = `Проигрыш! ${playerSum} vs ${dealerSum}. Удача в следующий раз!`;
-            }
-            
-            updateBalance();
-        }
-    </script>
-</body>
-</html>
+        // Блокировка кнопок ставок во время игры
+        function toggleBetButtons(disabled) {
+            document.getElementById('blackjack-minus').disabled = disabled
